@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>CRUD</title>
+
+    <style>
+      body {
+        font-family: Arial, Helvetica, sans-serif;
+        background-color: #000000;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+      }
+      .container {
+        background-color: rgb(0, 0, 0);
+        padding: 20px;
+        border: 3px solid aqua;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 600px;
+      }
+      h1 {
+        text-align: center;
+        color: aqua;
+      }
+      .form-control {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 2px solid aqua;
+        border-radius: 5px;
+      }
+      .btn {
+        padding: 10px 20px;
+        color: aqua;
+        background-color: #000000 ;
+        border: 2px solid aqua;
+        border-radius: 5px;
+        cursor: pointer;
+        margin: 10px 0;
+      }
+      .btn:hover {
+        background-color: black;
+      }
+      table {
+        width: 100%;
+        margin-top: 20px;
+        border-collapse: collapse;
+      }
+      table, th, td {
+        border: 2px solid aqua;
+      }
+      th, td {
+        padding: 10px;
+        text-align: center;
+        font-family: Arial, Helvetica, sans-serif;
+        color: aqua;
+      }
+      th {
+        background-color:black;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>CRUD</h1>
+      
+      <!-- Formulario para agregar usuarios -->
+      <div id="formulario">
+        <input type="text" id="nombre" placeholder="Nombre" class="form-control">
+        <input type="text" id="apellido" placeholder="Apellido" class="form-control">
+        <input type="text" id="fecha" placeholder="Fecha de Nacimiento" class="form-control">
+        <button class="btn" id="boton" onclick="guardar()">Guardar</button>
+      </div>
+
+      <!-- Tabla para mostrar los usuarios -->
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Fecha de Nacimiento</th>
+          </tr>
+        </thead>
+        <tbody id="tabla">
+        </tbody>
+      </table>
+    </div>
+
+    <script>
+      let usuarios = [];
+
+      // Función para guardar un usuario
+      function guardar() {
+        let nombre = document.getElementById('nombre').value;
+        let apellido = document.getElementById('apellido').value;
+        let fecha = document.getElementById('fecha').value;
+
+        // Crear un nuevo usuario
+        const nuevoUsuario = {
+          id: Date.now().toString(),
+          nombre,
+          apellido,
+          fecha
+        };
+        usuarios.push(nuevoUsuario);
+
+        // Limpiar el formulario
+        document.getElementById('nombre').value = '';
+        document.getElementById('apellido').value = '';
+        document.getElementById('fecha').value = '';
+
+        mostrarUsuarios();
+      }
+
+      // Función para mostrar los usuarios en la tabla
+      function mostrarUsuarios() {
+        const tabla = document.getElementById('tabla');
+        tabla.innerHTML = '';
+
+        usuarios.forEach(usuario => {
+          tabla.innerHTML += `
+            <tr>
+              <td>${usuario.id}</td>
+              <td>${usuario.nombre}</td>
+              <td>${usuario.apellido}</td>
+              <td>${usuario.fecha}</td>
+            </tr>
+          `;
+        });
+      }
+
+      // Mostrar usuarios al cargar la página
+      mostrarUsuarios();
+    </script>
+  </body>
+</html>
